@@ -18,15 +18,15 @@ public class IntakeCommand extends CommandBase {
 
   Spinner spinnerSubsystem;
 
-  BooleanSupplier pneumaticsToggle;
+  BooleanSupplier runIntake;
 
   Timer timer;
 
-  public IntakeCommand(Pneumatics pneumaticsSubsystem, Spinner spinnerSubsystem, BooleanSupplier intakeToggle) {
+  public IntakeCommand(Pneumatics pneumaticsSubsystem, Spinner spinnerSubsystem, BooleanSupplier runIntake) {
     this.pneumaticsSubsystem = pneumaticsSubsystem;
     this.spinnerSubsystem = spinnerSubsystem;
-    this.pneumaticsToggle = pneumaticsToggle;
-    addRequirements(pneumaticsSubsystem);
+    this.runIntake = runIntake;
+    addRequirements(pneumaticsSubsystem, spinnerSubsystem);
   }
 
   // Called when the command is initially scheduled.
@@ -41,7 +41,7 @@ public class IntakeCommand extends CommandBase {
   public void execute() {
     /**If the BooleanSupplier returns a true value, run the toggleSolenoid()
      method in the pneumaticsSubsystem */
-    if (pneumaticsToggle.getAsBoolean()) {
+    if (runIntake.getAsBoolean()) {
       timer.reset();
       if (!timer.hasElapsed(3)) { //TODO: discuss optimal running time with Andrew
         pneumaticsSubsystem.changeState(Value.kForward);

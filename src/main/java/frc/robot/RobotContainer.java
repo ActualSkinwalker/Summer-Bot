@@ -5,7 +5,10 @@
 package frc.robot;
 
 import frc.robot.commands.DriveCommand;
+import frc.robot.commands.IntakeCommand;
 import frc.robot.commands.SimpleAuton;
+import frc.robot.subsystems.Pneumatics;
+import frc.robot.subsystems.Spinner;
 import frc.robot.subsystems.Swerve;
 import frc.robot.subsystems.SwerveModule;
 import edu.wpi.first.math.geometry.Translation2d;
@@ -18,14 +21,18 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 public class RobotContainer {
   
   private final Swerve swerveSubsystem;
+  private final Pneumatics pneumaticsSubsystem;
+  private final Spinner spinnerSubsystem;
   private final DriveCommand driveCommand;
+  private final IntakeCommand intakeCommand;
   private final SwerveModule flModule, frModule, rlModule, rrModule;
   private final Translation2d flModuleTranslation, frModuleTranslation, rlModuleTranslation, rrModuleTranslation;
-  private XboxController driverController;
+  private XboxController driverController, commandController;
 
   public RobotContainer() {
 
     driverController = new XboxController(0);
+    commandController = new XboxController(1);
 
     flModuleTranslation = new Translation2d(-.43, .41);
     frModuleTranslation = new Translation2d(.43, .41);
@@ -50,6 +57,8 @@ public class RobotContainer {
       IDMaps.rrEncoderID, rrModuleTranslation);
 
     swerveSubsystem = new Swerve(flModule, frModule, rlModule, rrModule);
+    pneumaticsSubsystem = new Pneumatics(IDMaps.pcmID);
+    spinnerSubsystem = new Spinner(IDMaps.spinnerMotorID);
 
     driveCommand = new DriveCommand(
       swerveSubsystem, 
@@ -58,8 +67,14 @@ public class RobotContainer {
       () -> driverController.getRightX(), 
       () -> driverController.getAButton(), 
       () -> driverController.getXButton());
+    
+    intakeCommand = new IntakeCommand(
+      pneumaticsSubsystem, 
+      spinnerSubsystem, 
+      () -> commandController.getLeftBumperPressed());
 
     swerveSubsystem.setDefaultCommand(driveCommand);
+    pneumaticsSubsystem.setDefaultCommand(intakeCommand);
   }
 
   /**Creates a new sendable field in the Analysis Tab of ShuffleBoard */

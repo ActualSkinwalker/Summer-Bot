@@ -16,8 +16,8 @@ public class Pneumatics extends SubsystemBase {
   PneumaticsControlModule PCM;
 
   /**Creates a new Pneumatics subsystem with a PCM and two solenoids */
-  public Pneumatics(PneumaticsControlModule PCM) {
-    this.PCM = PCM;
+  public Pneumatics(int pcmID) {
+    PCM = new PneumaticsControlModule(pcmID);
 
     solenoid = PCM.makeDoubleSolenoid(0, 0); //TODO: Find channel values
   }

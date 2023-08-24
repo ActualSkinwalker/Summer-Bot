@@ -5,6 +5,8 @@
 package frc.robot.subsystems;
 
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMax.IdleMode;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
@@ -12,8 +14,9 @@ public class Spinner extends SubsystemBase {
   
   CANSparkMax spinnerMotor;
 
-  public Spinner(CANSparkMax spinnerMotor) {
-    this.spinnerMotor = spinnerMotor;
+  public Spinner(int motorID) {
+    spinnerMotor = new CANSparkMax(motorID, MotorType.kBrushless);
+    spinnerMotor.setIdleMode(IdleMode.kCoast);
   }
 
   public void runSpinner () {
