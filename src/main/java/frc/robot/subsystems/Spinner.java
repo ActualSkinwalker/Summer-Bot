@@ -19,8 +19,12 @@ public class Spinner extends SubsystemBase {
     spinnerMotor.setIdleMode(IdleMode.kCoast);
   }
 
+  public void shoot () {
+    spinnerMotor.set(-.5); //TODO: Run testing to determine optimal speed
+  }
+
   public void runSpinner () {
-    spinnerMotor.set(50); //TODO: Run testing to determine optimal speed
+    spinnerMotor.set(.5); //TODO: Run testing to determine optimal speed
   }
 
   public void stop () {
