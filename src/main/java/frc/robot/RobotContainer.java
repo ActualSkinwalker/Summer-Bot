@@ -8,7 +8,7 @@ import frc.robot.commands.DriveCommand;
 import frc.robot.commands.IntakeCommand;
 import frc.robot.commands.SimpleAuton;
 import frc.robot.subsystems.Pneumatics;
-import frc.robot.subsystems.Spinner;
+// import frc.robot.subsystems.Spinner;
 import frc.robot.subsystems.Swerve;
 import frc.robot.subsystems.SwerveModule;
 import edu.wpi.first.math.geometry.Translation2d;
@@ -22,8 +22,8 @@ public class RobotContainer {
   
   private final Swerve swerveSubsystem;
   private final Pneumatics pneumaticsSubsystem;
-  private final Spinner spinnerSubsystem;
-  private final DriveCommand driveCommand;
+  // private final Spinner spinnerSubsystem;
+  // private final DriveCommand driveCommand;
   private final IntakeCommand intakeCommand;
   private final SwerveModule flModule, frModule, rlModule, rrModule;
   private final Translation2d flModuleTranslation, frModuleTranslation, rlModuleTranslation, rrModuleTranslation;
@@ -58,22 +58,23 @@ public class RobotContainer {
 
     swerveSubsystem = new Swerve(flModule, frModule, rlModule, rrModule);
     pneumaticsSubsystem = new Pneumatics(IDMaps.pcmID);
-    spinnerSubsystem = new Spinner(IDMaps.spinnerMotorID);
+    // spinnerSubsystem = new Spinner(IDMaps.spinnerMotorID);
 
-    driveCommand = new DriveCommand(
-      swerveSubsystem, 
-      () -> driverController.getLeftX(), 
-      () -> driverController.getLeftY(), 
-      () -> driverController.getRightX(), 
-      () -> driverController.getAButton(), 
-      () -> driverController.getXButton());
+    // driveCommand = new DriveCommand(
+    //   swerveSubsystem, 
+    //   () -> driverController.getLeftX(), 
+    //   () -> driverController.getLeftY(), 
+    //   () -> driverController.getRightX(), 
+    //   () -> driverController.getAButton(), 
+    //   () -> driverController.getXButton());
     
     intakeCommand = new IntakeCommand(
       pneumaticsSubsystem, 
-      spinnerSubsystem, 
-      () -> commandController.getLeftBumperPressed());
+      // spinnerSubsystem, 
+      () -> commandController.getLeftBumperPressed(),
+      () -> commandController.getLeftBumperReleased());
 
-    swerveSubsystem.setDefaultCommand(driveCommand);
+    // swerveSubsystem.setDefaultCommand(driveCommand);
     pneumaticsSubsystem.setDefaultCommand(intakeCommand);
   }
 

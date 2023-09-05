@@ -4,35 +4,35 @@
 
 package frc.robot.subsystems;
 
-import com.revrobotics.CANSparkMax;
-import com.revrobotics.CANSparkMax.IdleMode;
-import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+// import com.revrobotics.CANSparkMax;
+// import com.revrobotics.CANSparkMax.IdleMode;
+// import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Spinner extends SubsystemBase {
   
-  CANSparkMax spinnerMotor;
+  // CANSparkMax spinnerMotor;
 
-  public Spinner(int motorID) {
-    spinnerMotor = new CANSparkMax(motorID, MotorType.kBrushless);
-    spinnerMotor.setIdleMode(IdleMode.kCoast);
-  }
+  // public Spinner(int motorID) {
+  //   spinnerMotor = new CANSparkMax(motorID, MotorType.kBrushless);
+  //   spinnerMotor.setIdleMode(IdleMode.kCoast);
+  // }
 
-  public void shoot () {
-    spinnerMotor.set(-.5); //TODO: Run testing to determine optimal speed
-  }
+  // public void shoot () {
+  //   spinnerMotor.set(-.5); //TODO: Run testing to determine optimal speed
+  // }
 
-  public void runSpinner () {
-    spinnerMotor.set(.5); //TODO: Run testing to determine optimal speed
-  }
+  // public void runSpinner () {
+  //   spinnerMotor.set(.5); //TODO: Run testing to determine optimal speed
+  // }
 
-  public void stop () {
-    spinnerMotor.stopMotor();
-  }
+  // public void stop () {
+  //   spinnerMotor.stopMotor();
+  // }
 
-  @Override
-  public void periodic() {
-    // This method will be called once per scheduler run
-  }
+  // @Override
+  // public void periodic() {
+  //   // This method will be called once per scheduler run
+  // }
 }

@@ -10,56 +10,80 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Pneumatics;
-import frc.robot.subsystems.Spinner;
+// import frc.robot.subsystems.Spinner;
 
 public class IntakeCommand extends CommandBase {
-  
+  //TODO: UNCOMMENT ALL SPINNER THINGS WHEN IT'S ADDED!!!!!!!!!
   Pneumatics pneumaticsSubsystem;
 
-  Spinner spinnerSubsystem;
+  // Spinner spinnerSubsystem;
 
-  BooleanSupplier runIntake;
+  BooleanSupplier runIntake, runIntakeReleased;
 
   Timer timer;
 
-  public IntakeCommand(Pneumatics pneumaticsSubsystem, Spinner spinnerSubsystem, BooleanSupplier runIntake) {
+  public IntakeCommand(Pneumatics pneumaticsSubsystem, /**Spinner spinnerSubsystem,*/ BooleanSupplier runIntake, BooleanSupplier runIntakeReleased) {
     this.pneumaticsSubsystem = pneumaticsSubsystem;
-    this.spinnerSubsystem = spinnerSubsystem;
+    // this.spinnerSubsystem = spinnerSubsystem;
     this.runIntake = runIntake;
-    addRequirements(pneumaticsSubsystem, spinnerSubsystem);
+    this.runIntakeReleased = runIntakeReleased;
+    timer = new Timer();
+    addRequirements(pneumaticsSubsystem/**, spinnerSubsystem*/);
   }
 
-  // Called when the command is initially scheduled.
+  // Called when the command is initially scheduled. 
   @Override
   public void initialize() {
     pneumaticsSubsystem.enableSubsystem();
-    spinnerSubsystem.stop();
+    timer.restart();
+    // spinnerSubsystem.stop();
   }
+
+  boolean continueIntake;
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
     /**If the BooleanSupplier returns a true value, run the toggleSolenoid()
      method in the pneumaticsSubsystem */
-    if (runIntake.getAsBoolean()) {
-      timer.reset();
-      if (!timer.hasElapsed(3)) { //TODO: discuss optimal running time with Andrew
+     
+      if (runIntake.getAsBoolean() && pneumaticsSubsystem.getState() == Value.kReverse) {
         pneumaticsSubsystem.changeState(Value.kForward);
-        spinnerSubsystem.runSpinner();
+        //spinnerSubsystem.runSpinner();
+      }
+      else if (runIntakeReleased.getAsBoolean()) {
+        pneumaticsSubsystem.changeState(Value.kReverse);
+        //spinnerSubsystem.stop()
+      }
+      
+    /**if (runIntake.getAsBoolean() && timer.get() > 6) {
+      timer.reset();
+      continueIntake = true;
+    }   
+    if (continueIntake) {
+      if (!timer.hasElapsed(5)) { //TODO: discuss optimal running time with Andrew
+        pneumaticsSubsystem.changeState(Value.kForward);
+        // spinnerSubsystem.runSpinner();
       }
       else {
         pneumaticsSubsystem.changeState(Value.kReverse);
-        spinnerSubsystem.stop();
+        // spinnerSubsystem.stop();
+        continueIntake = false;
       }
     }
-    
+
+    if (cancelIntake.getAsBoolean()) {
+      //spinnerSubsystem.stop();
+      pneumaticsSubsystem.changeState(Value.kReverse);
+    }
+    */
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
     pneumaticsSubsystem.disableSubsystem();
-    spinnerSubsystem.stop();
+    // spinnerSubsystem.stop();
   }
 
   // Returns true when the command should end.

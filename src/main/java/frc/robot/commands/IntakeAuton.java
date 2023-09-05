@@ -12,51 +12,51 @@ import frc.robot.subsystems.Spinner;
 
 public class IntakeAuton extends CommandBase {
 
-  Timer timer;
+  // Timer timer;
 
-  Pneumatics pneumaticsSubsystem;
-  Spinner spinnerSubsystem;
-  double timeInSeconds;
+  // Pneumatics pneumaticsSubsystem;
+  // Spinner spinnerSubsystem;
+  // double timeInSeconds;
   
-  public IntakeAuton(Pneumatics pneumaticsSubsystem, Spinner spinnerSubsystem, double timeInSeconds) {
-    this.timer = new Timer();
-    this.pneumaticsSubsystem = pneumaticsSubsystem;
-    this.spinnerSubsystem = spinnerSubsystem;
-    this.timeInSeconds = timeInSeconds;
-    addRequirements(pneumaticsSubsystem, spinnerSubsystem);
-  }
+  // public IntakeAuton(Pneumatics pneumaticsSubsystem, Spinner spinnerSubsystem, double timeInSeconds) {
+  //   this.timer = new Timer();
+  //   this.pneumaticsSubsystem = pneumaticsSubsystem;
+  //   this.spinnerSubsystem = spinnerSubsystem;
+  //   this.timeInSeconds = timeInSeconds;
+  //   addRequirements(pneumaticsSubsystem, spinnerSubsystem);
+  // }
 
-  @Override
-  public void initialize() {
-    spinnerSubsystem.stop();
-    pneumaticsSubsystem.changeState(Value.kReverse);
-    timer.restart();
-  }
+  // @Override
+  // public void initialize() {
+  //   spinnerSubsystem.stop();
+  //   pneumaticsSubsystem.changeState(Value.kReverse);
+  //   timer.restart();
+  // }
 
-  // Called every time the scheduler runs while the command is scheduled.
-  @Override
-  public void execute() {
-    if (!timer.hasElapsed(timeInSeconds)) {
-      pneumaticsSubsystem.changeState(Value.kForward);
-      spinnerSubsystem.runSpinner();
-    }
-    else {
-      pneumaticsSubsystem.toggleSolenoid();
-      spinnerSubsystem.stop();
-    }
-  }
+  // // Called every time the scheduler runs while the command is scheduled.
+  // @Override
+  // public void execute() {
+  //   if (!timer.hasElapsed(timeInSeconds)) {
+  //     pneumaticsSubsystem.changeState(Value.kForward);
+  //     spinnerSubsystem.runSpinner();
+  //   }
+  //   else {
+  //     pneumaticsSubsystem.toggleSolenoids();
+  //     spinnerSubsystem.stop();
+  //   }
+  // }
 
-  // Called once the command ends or is interrupted.
-  @Override
-  public void end(boolean interrupted) {
-    timer.stop();
-    pneumaticsSubsystem.changeState(Value.kReverse);
-    spinnerSubsystem.stop();
-  }
+  // // Called once the command ends or is interrupted.
+  // @Override
+  // public void end(boolean interrupted) {
+  //   timer.stop();
+  //   pneumaticsSubsystem.changeState(Value.kReverse);
+  //   spinnerSubsystem.stop();
+  // }
 
-  // Returns true when the command should end.
-  @Override
-  public boolean isFinished() {
-    return false;
-  }
+  // // Returns true when the command should end.
+  // @Override
+  // public boolean isFinished() {
+  //   return false;
+  // }
 }

@@ -7,7 +7,7 @@ package frc.robot;
 public final class IDMaps {
 
     public static final int 
-    pcmID = 0, //TODO: Get this value
+    pcmID = 13, //TODO: Get this value
     flDriveMotorID = 1,
     flSteerMotorID = 2,
     flEncoderID = 9,
@@ -19,6 +19,6 @@ public final class IDMaps {
     rlEncoderID = 11,
     rrDriveMotorID = 7,
     rrSteerMotorID = 8,
-    rrEncoderID = 12,
-    spinnerMotorID = 0; //TODO: Get this value
+    rrEncoderID = 12;
+    // spinnerMotorID = 0; //TODO: Get this value
 }
